@@ -1,0 +1,18 @@
+package feign;
+import java.util.List;
+
+import org.ms.facture_servicePJ.entities.Produit;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.web.PagedModel;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "produit-service", url = "http://localhost:7268/api")
+public interface ProduitServiceClient {
+
+    @GetMapping(path = "/api/produits/{id}")
+    Produit findProduitById(@PathVariable(name = "id") int id);
+    
+    @GetMapping(path="/produits")
+    List<Produit> findAllProduits();
+}

@@ -1,0 +1,19 @@
+package org.ms.auth_service.model;
+
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("administrateur")
+public class Administrateur extends Utilisateur  {
+
+	public Administrateur() {
+		super();
+	}
+	
+	public Administrateur(Long id,String password, String code, String login, String nom,  String prenom) {
+        super(id, password,code, login, nom, prenom);
+	    }
+	
+
+}

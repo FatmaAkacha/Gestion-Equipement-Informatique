@@ -1,0 +1,5 @@
+spring.application.name=eureka-discovery-service
+server.port=8761
+eureka.client.fetch.registry=false
+eureka.client.register-with-eureka=false
+eureka.client.serviceUrl.defaultZone=http://eureka-server:8763/eureka/

@@ -1,0 +1,63 @@
+
+
+services:
+  eureka-server:
+    image: eureka-server
+    build:
+      context: ./eureka-discovery-service
+      dockerfile: Dockerfile
+    ports:
+      - "8762:8762"
+    networks:
+      - microservices-network
+    restart: always
+
+  produit-api:
+    image: produit-api
+    build:
+      context: ./MicroNet
+      dockerfile: ProduitAPI/Dockerfile
+    ports:
+      - "5255:5255"
+    networks:
+      - microservices-network
+    restart: always
+
+  client-api:
+    image: client-api
+    build:
+      context: ./MicroNet
+      dockerfile: ClientAPI/Dockerfile
+    ports:
+      - "5073:5073"
+    networks:
+      - microservices-network
+    restart: always
+
+  facture-api:  
+    image: facture-api
+    build:
+      context: ./facture-servicePJ
+      dockerfile: Dockerfile  
+    ports:
+      - "7000:7000" 
+    networks:
+      - microservices-network
+    restart: always
+    volumes:
+      - ./facture-servicePJ:/app
+
+  gateway:
+    image: gateway-service  
+    build:
+      context: ./gateway-service  
+      dockerfile: Dockerfile  
+    ports:
+      - "8080:8080"  
+    networks:
+      - microservices-network
+    restart: always
+
+networks:
+  microservices-network:
+    driver: bridge

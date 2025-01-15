@@ -1,0 +1,66 @@
+package org.ms.facture_servicePJ.web;
+
+import org.ms.facture_servicePJ.entities.Client;
+import org.ms.facture_servicePJ.entities.Facture;
+import org.ms.facture_servicePJ.entities.Produit;
+import org.ms.facture_servicePJ.feign.ClientServiceClient;
+import org.ms.facture_servicePJ.feign.ProduitServiceClient;
+import org.ms.facture_servicePJ.repository.FactureRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Hashtable;
+import java.util.Map;
+
+@RestController
+@RefreshScope
+public class FactureRestController {
+
+    private final FactureRepository factureRepository;
+    private final ClientServiceClient clientServiceClient;
+    private final ProduitServiceClient produitServiceClient;
+
+    @Value("${globalParam}")
+    private int globalParam;
+
+    @Value("${email}")
+    private String email;
+
+    public FactureRestController(
+            FactureRepository factureRepository,
+            ClientServiceClient clientServiceClient,
+            ProduitServiceClient produitServiceClient) {
+
+        this.factureRepository = factureRepository;
+        this.clientServiceClient = clientServiceClient;
+        this.produitServiceClient = produitServiceClient;
+    }
+
+    @GetMapping("config")
+    public Map<String, Object> config() {
+        Map<String, Object> params = new Hashtable<>();
+        params.put("globalParam", globalParam);
+        params.put("email", email);
+        params.put("threadName", Thread.currentThread().toString());
+        return params;
+    }
+
+    @GetMapping(path = "/full-facture/{id}")
+    public Facture getFacture(@PathVariable(name = "id") Long id) {
+        Facture facture = factureRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Facture not found"));
+
+        // Récupération des informations du client via Feign
+        Client client = clientServiceClient.findClientById(facture.getClient().getId());
+        facture.setClient(client);
+
+        // Récupération des informations du produit via Feign
+        Produit produit = produitServiceClient.findProduitById(facture.getProduit().getId());
+        facture.setProduit(produit);
+
+        return facture;
+    }
+}

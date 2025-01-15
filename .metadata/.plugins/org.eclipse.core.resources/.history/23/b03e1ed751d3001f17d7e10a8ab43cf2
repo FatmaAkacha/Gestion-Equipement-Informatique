@@ -1,0 +1,36 @@
+package org.ms.auth_service.controller;
+
+import org.ms.auth_service.model.Utilisateur;
+import org.ms.auth_service.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+    
+    
+
+    @GetMapping("/login")
+    public String loginForm() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public ModelAndView login(@RequestParam String username, @RequestParam String password, @RequestParam(required = false) String type_utilisateur) {
+        Utilisateur user = userService.authenticate(username, password);
+        if (user != null) {
+            return new ModelAndView("redirect:/home")
+                    .addObject("username", username)
+                    .addObject("type_utilisateur", type_utilisateur);
+            
+        }
+        return new ModelAndView("login").addObject("error", "Invalid username or password");
+    }	
+}

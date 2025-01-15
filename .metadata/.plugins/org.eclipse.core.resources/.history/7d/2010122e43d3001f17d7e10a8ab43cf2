@@ -1,0 +1,6 @@
+
+server.port=8888
+spring.application.name=gateway-service
+spring.cloud.discovery.enabled=true
+logging.level.org.springframework.web=DEBUG
+logging.level.org.springframework.cloud.gateway=DEBUG

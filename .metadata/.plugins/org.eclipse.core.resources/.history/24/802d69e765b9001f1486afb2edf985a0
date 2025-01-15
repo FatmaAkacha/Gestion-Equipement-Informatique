@@ -1,0 +1,17 @@
+package org.ms.reglement_service.feign;
+
+import java.util.List;
+
+import org.ms.reglement_service.entites.Facture;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "FACTURE-SERVICEPJ")
+public interface FactureServiceClient {
+	@GetMapping(path = "/api/factures/{id}")
+    Facture findFactureById(@PathVariable(name = "id") int id);
+    
+    @GetMapping(path="/factures")
+    List<Facture> findAllFactures();
+}

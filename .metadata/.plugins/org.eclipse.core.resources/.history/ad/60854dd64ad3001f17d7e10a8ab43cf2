@@ -1,0 +1,22 @@
+package org.ms.auth_service.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+
+	@Autowired
+	private UtilisateurRepository userRepository;
+
+	public Utilisateur authenticate(String username, String password) {
+		Utilisateur user = userRepository.findByLogin(username);
+		if (user != null && user.getPassword().equals(password)) {
+			return user;
+		}
+		return null;
+	}
+
+	
+
+}
+

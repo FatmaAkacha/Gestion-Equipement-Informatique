@@ -1,0 +1,5 @@
+# Nom de l'application
+spring.application.name=currency-service
+management.endpoints.web.exposure.include=*
+spring.jmx.enabled=false
+server.port=8084

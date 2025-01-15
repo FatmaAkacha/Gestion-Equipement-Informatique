@@ -1,0 +1,18 @@
+package org.ms.reglement_service.feign;
+
+import org.ms.facture_servicez.entities.Categorie;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.web.PagedModel;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "categorie-service", url = "http://localhost:7268/api/Categories")  // URL du microservice Categorie
+public interface CategorieServiceClient {
+
+    @GetMapping("/{id}")
+    Categorie getCategorieById(@PathVariable(name="id") long id);
+
+    @GetMapping
+
+    PagedModel<Categorie> getAllCategories();
+}

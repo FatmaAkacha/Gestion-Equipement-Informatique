@@ -1,0 +1,5 @@
+package org.ms.auth_service.model;
+
+public class Utilisateur {
+
+}

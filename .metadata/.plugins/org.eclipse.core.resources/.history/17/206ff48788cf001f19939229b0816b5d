@@ -1,0 +1,5 @@
+package org.ms.facture_servicePJ.Front;
+
+public class WebConfig {
+
+}
