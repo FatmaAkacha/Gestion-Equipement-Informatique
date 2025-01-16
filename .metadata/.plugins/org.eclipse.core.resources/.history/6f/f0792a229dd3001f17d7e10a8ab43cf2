@@ -1,0 +1,5 @@
+package org.ms.currencyservice.front;
+
+public class WebConfig {
+
+}

@@ -72,11 +72,7 @@ public class FactureRestController {
         return factureService.getAllFactures();
     }
 
-    @PostMapping("/facture")
-    public Facture createFacture(@RequestBody Facture newFacture) {
-        return factureService.createFacture(newFacture);
-    }
-
+ 
     @GetMapping("/factures/global-chiffre-affaires")
     public double getGlobalChiffreAffaires() {
         return factureService.calculateGlobalChiffreAffaires();
@@ -92,7 +88,13 @@ public class FactureRestController {
         factureService.deleteFacture(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    @PostMapping("/facture")
+    public Facture createFacture(@RequestBody Facture newFacture) {
+        if (newFacture.getCurrency() == null || newFacture.getCurrency().isEmpty()) {
+            newFacture.setCurrency("TND");
+        }
+        return factureService.createFacture(newFacture);
+    }
     @GetMapping("/factures/status")
     public Map<String, List<Facture>> getFacturesByStatus() {
         return factureService.getFacturesByStatus();

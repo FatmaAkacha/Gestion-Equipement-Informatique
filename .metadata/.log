@@ -5450,3 +5450,21 @@ Contains: Missing org.springframework.cloud:spring-cloud-starter-netflix-eureka-
 !MESSAGE Could not resolve artifact org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:jar:javadoc:4.1.5
 !SUBENTRY 2 org.eclipse.m2e.core 4 0 2025-01-15 15:38:10.204
 !MESSAGE Missing org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:jar:javadoc:4.1.5
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-01-15 23:52:58.958
+!MESSAGE Classpath changed for project: facture-servicePJ
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-01-16 01:01:50.201
+!MESSAGE Classpath changed for project: currency-service
+
+!ENTRY org.eclipse.lsp4e 2 0 2025-01-16 01:02:32.654
+!MESSAGE Timeout waiting for data to generate LS hover
+!STACK 0
+java.util.concurrent.TimeoutException
+	at java.base/java.util.concurrent.CompletableFuture.timedGet(CompletableFuture.java:1960)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2095)
+	at org.eclipse.lsp4e.jdt.LSJavaHoverProvider.getHoverInfo2(LSJavaHoverProvider.java:65)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:163)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
+	at org.eclipse.jface.text.TextViewerHoverManager$1.run(TextViewerHoverManager.java:155)
